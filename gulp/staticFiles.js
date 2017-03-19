@@ -1,12 +1,14 @@
 const gulp = require('gulp');
 const cache = require('gulp-cached');
 
-const targets = [
-  { description: 'INDEX', src: './src/index.html', dest: './dev' },
+const originals = [
+  { description: 'INDEX', src: './src/index.html', dest: '' },
 ];
+let targets = {};
 
 function copy(options) {
   function run(target) {
+    console.log(target);
     gulp.src(target.src)
       .pipe(cache(target.description))
       .pipe(gulp.dest(target.dest));
@@ -22,14 +24,16 @@ function copy(options) {
     targets.forEach(watch);
   }
 }
-
+function setDest(path) {
+  targets = originals.map(target => Object.assign({}, target, { dest: path }));
+}
 module.exports = {
   build() {
-    targets.dest = './build';
+    setDest('./build');
     return copy({ shouldWatch: false });
   },
   watch() {
-    targets.dest = './dev';
+    setDest('./dev');
     return copy({ shouldWatch: true });
   },
 };

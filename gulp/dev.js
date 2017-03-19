@@ -7,32 +7,15 @@ const sourcemaps = require('gulp-sourcemaps');
 const buffer = require('vinyl-buffer');
 const watchify = require('watchify');
 const gutil = require('gulp-util');
-const tslint = require('gulp-tslint');
-const eslint = require('gulp-eslint');
 const connect = require('gulp-connect');
 const staticFiles = require('./staticFiles');
 const tests = require('./tests');
 const clean = require('./clean');
+require('./lint');
 
-const paths = {
-  pages: ['../src/*.html'],
-  jsSrcs: ['./**/*.js'],
-  tsSrcs: ['../src/**/*.ts'],
-};
-
-gulp.task('delete-dev', (done) => {
+gulp.task('clean-dev', (done) => {
   clean.run(done, './dev');
 });
-
-gulp.task('eslint', () => gulp.src(paths.jsSrcs)
-    .pipe(eslint())
-    .pipe(eslint.format()));
-
-gulp.task('tslint', () => gulp.src(paths.tsSrcs)
-    .pipe(tslint({
-      formatter: 'verbose',
-    }))
-    .pipe(tslint.report()));
 
 gulp.task('connect-dev', () => {
   connect.server({
