@@ -3,7 +3,7 @@ const path = require('path');
 const open = require('opn');
 const exec = require('child_process').exec;
 
-const baseDir = process.env.NODE_ENV === 'production' ? 'build' : 'dev';
+const baseDir = 'build';
 const port = process.env.NODE_ENV === 'production' ? process.env.PORT : 8080;
 const app = express();
 
