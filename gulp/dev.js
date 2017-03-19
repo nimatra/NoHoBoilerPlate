@@ -20,7 +20,7 @@ const paths = {
   tsSrcs: ['../src/**/*.ts'],
 };
 
-gulp.task('delete-dev', (done) => {
+gulp.task('clean-dev', (done) => {
   clean.run(done, './dev');
 });
 

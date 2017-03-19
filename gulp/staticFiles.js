@@ -2,7 +2,7 @@ const gulp = require('gulp');
 const cache = require('gulp-cached');
 
 const targets = [
-  { description: 'INDEX', src: './src/index.html', dest: './dev' },
+  { description: 'INDEX', src: './src/index.html', dest: '' },
 ];
 
 function copy(options) {

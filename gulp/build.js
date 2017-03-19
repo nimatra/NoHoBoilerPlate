@@ -20,7 +20,7 @@ const paths = {
   tsSrcs: ['../src/**/*.ts'],
 };
 
-gulp.task('delete-build', (done) => {
+gulp.task('clean-build', (done) => {
   clean.run(done, './build');
 });
 
@@ -33,14 +33,6 @@ gulp.task('tslint', () => gulp.src(paths.tsSrcs)
       formatter: 'verbose',
     }))
     .pipe(tslint.report()));
-
-gulp.task('connect-build', () => {
-  connect.server({
-    root: './build',
-    port: process.env.PORT || 8080,
-    livereload: true,
-  });
-});
 
 const buildBrowserify = browserify({
   basedir: '.',
@@ -69,6 +61,6 @@ function build() {
 }
 // todo: add delete path
 gulp.task('build', () => {
-  runSequence(['eslint', 'tslint', 'connect-build']);
+  runSequence(['eslint', 'tslint']);
   build();
 });
