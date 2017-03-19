@@ -1,0 +1,57 @@
+{
+  "name": "noho-boilerplate",
+  "version": "0.0.1",
+  "description": "Node TypeScript Gulp React Infrastructure",
+  "main": "dist/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nimatra/NoHoBoilerPlate.git"
+  },
+  "keywords": [
+    "Node",
+    "TypeScript",
+    "Gulp",
+    "React",
+    "Azure"
+  ],
+  "author": "nimatra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nimatra/NoHoBoilerPlate/issues"
+  },
+  "homepage": "https://github.com/nimatra/NoHoBoilerPlate#readme",
+  "dependencies": {
+    "babel-preset-es2015": "^6.24.0",
+    "babelify": "^7.3.0",
+    "browserify": "^14.1.0",
+    "del": "^2.2.2",
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "gulp": "^3.9.1",
+    "gulp-cached": "^1.1.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-sourcemap": "^1.0.1",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-tslint": "^7.1.0",
+    "gulp-typescript": "^3.1.6",
+    "gulp-uglify": "^2.1.0",
+    "gulp-util": "^3.0.8",
+    "react": "^15.4.2",
+    "redux": "^3.6.0",
+    "require-dir": "^0.3.1",
+    "run-sequence": "^1.2.2",
+    "tsify": "^3.0.1",
+    "tslint": "^4.5.1",
+    "typescript": "^2.2.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.9.0"
+  }
+}
