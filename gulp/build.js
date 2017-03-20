@@ -7,14 +7,9 @@ const sourcemaps = require('gulp-sourcemaps');
 const buffer = require('vinyl-buffer');
 const gutil = require('gulp-util');
 const runSequence = require('run-sequence');
-const staticFiles = require('./staticFiles');
-const tests = require('./tests');
-const clean = require('./clean');
-require('./lint');
+const requireDir = require('require-dir');
 
-gulp.task('clean-build', (done) => {
-  clean.run(done, './build');
-});
+requireDir('./', { recurse: true });
 
 const buildBrowserify = browserify({
   basedir: '.',
@@ -24,7 +19,7 @@ const buildBrowserify = browserify({
   packageCache: {},
 }).plugin(tsify)
   .transform('babelify', {
-    presets: ['es2015'],
+    presets: ['es2015', 'react'],
     extensions: ['.ts'],
   })
   .bundle()
@@ -32,7 +27,6 @@ const buildBrowserify = browserify({
   .pipe(buffer());
 
 function build() {
-  staticFiles.build();
   const result = buildBrowserify
         .pipe(sourcemaps.init({ loadMaps: false }))
         .pipe(uglify())
@@ -43,6 +37,6 @@ function build() {
 }
 // todo: add delete path
 gulp.task('build', () => {
-  runSequence(['eslint', 'tslint']);
+  runSequence('clean-build', ['static-build', 'eslint', 'tslint']);
   return build();
 });

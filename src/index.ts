@@ -1,4 +1,4 @@
-import { greet } from "./greet";
+import { greet } from "./components/greet";
 
 function showHello(divName: string, name: string = null) {
     const div = document.getElementById(divName);

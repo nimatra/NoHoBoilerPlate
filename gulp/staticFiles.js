@@ -8,7 +8,6 @@ let targets = {};
 
 function copy(options) {
   function run(target) {
-    console.log(target);
     gulp.src(target.src)
       .pipe(cache(target.description))
       .pipe(gulp.dest(target.dest));
@@ -27,13 +26,17 @@ function copy(options) {
 function setDest(path) {
   targets = originals.map(target => Object.assign({}, target, { dest: path }));
 }
-module.exports = {
-  build() {
-    setDest('./build');
-    return copy({ shouldWatch: false });
-  },
-  watch() {
-    setDest('./dev');
-    return copy({ shouldWatch: true });
-  },
-};
+function build(done) {
+  setDest('./build');
+  copy({ shouldWatch: false });
+  done();
+}
+function dev(done) {
+  setDest('./dev');
+  copy({ shouldWatch: true });
+  done();
+}
+
+gulp.task('static-build', done => build(done));
+
+gulp.task('static-dev', done => dev(done));
