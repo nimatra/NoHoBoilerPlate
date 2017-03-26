@@ -1,3 +1,4 @@
+const gulp = require('gulp');
 const del = require('del');
 const gutil = require('gulp-util');
 const fs = require('fs');
@@ -21,6 +22,6 @@ function run(done, path) {
   });
 }
 
-module.exports = {
-  run(done, path) { return run(done, path); },
-};
+gulp.task('clean-build', done => run(done, './build'));
+
+gulp.task('clean-dev', done => run(done, './dev'));

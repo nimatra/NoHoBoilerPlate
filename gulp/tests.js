@@ -1,44 +1,19 @@
+const gulp = require('gulp');
+const Server = require('karma').Server;
+
+/**
+ * Run test once and exit
+ */
+gulp.task('test', (done) => {
+  new Server({
+    configFile: `${__dirname}/../karma.conf.js`,
+    singleRun: true,
+  }, done).start();
+});
 
 
-// const Server = require('karma').Server;
-// const path = require('path');
-// const gutil = require('gulp-util');
+// const jasmineBrowser = require('gulp-jasmine-browser');
 
-// function runTests(options) {
-//   // Documentation: https://karma-runner.github.io/0.13/dev/public-api.html
-//   const karmaConfig = {
-//     configFile: path.join(__dirname, '../karma.conf.js'),
-//     singleRun: !options.shouldWatch,
-
-//     plugins: ['karma-webpack', 'karma-jasmine', 'karma-mocha-reporter', 'karma-sourcemap-loader', 'karma-phantomjs-launcher'],
-//     reporters: ['mocha'],
-//   };
-
-//   if (options.done) {
-//     karmaConfig.plugins.push('karma-junit-reporter');
-//     karmaConfig.reporters.push('junit');
-//   } else {
-//     karmaConfig.plugins.push('karma-notify-reporter');
-//     karmaConfig.reporters.push('notify');
-//   }
-
-//   new Server(karmaConfig, karmaCompleted).start();
-
-//   function karmaCompleted(exitCode) {
-//     if (options.done) {
-//       if (exitCode === 1) {
-//         gutil.log(`Karma: tests failed with code ${exitCode}`);
-//       } else {
-//         gutil.log('Karma completed!');
-//       }
-//       options.done();
-//     } else {
-//       process.exit(exitCode);
-//     }
-//   }
-// }
-
-// module.exports = {
-//   run(done) { return runTests({ shouldWatch: false, done }); },
-//   watch() { return runTests({ shouldWatch: true }); },
-// };
+// gulp.task('test', () => gulp.src(['dev/js/**/*.js', 'dev/js/**/*_spec.js'])
+//     .pipe(jasmineBrowser.specRunner({ console: true }))
+//     .pipe(jasmineBrowser.headless()));

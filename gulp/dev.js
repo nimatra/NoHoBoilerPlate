@@ -8,14 +8,10 @@ const buffer = require('vinyl-buffer');
 const watchify = require('watchify');
 const gutil = require('gulp-util');
 const connect = require('gulp-connect');
-const staticFiles = require('./staticFiles');
-const tests = require('./tests');
-const clean = require('./clean');
-require('./lint');
+const typescript = require('gulp-tsc');
+const requireDir = require('require-dir');
 
-gulp.task('clean-dev', (done) => {
-  clean.run(done, './dev');
-});
+requireDir('./', { recurse: true });
 
 gulp.task('connect-dev', () => {
   connect.server({
@@ -33,7 +29,7 @@ const watchedBrowserify = watchify(browserify({
   packageCache: {},
 }).plugin(tsify))
   .transform('babelify', {
-    presets: ['es2015'],
+    presets: ['es2015', 'react'],
     extensions: ['.ts'],
   })
   .bundle()
@@ -41,7 +37,11 @@ const watchedBrowserify = watchify(browserify({
   .pipe(buffer());
 
 function dev() {
-  staticFiles.watch();
+  // creating non-concatinated js transcompiles for testing
+  gulp.src(['src/**/*.ts'])
+    .pipe(typescript())
+    .pipe(gulp.dest('dev/js/'));
+
   const result = watchedBrowserify
         .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(sourcemaps.write('./'))
@@ -51,8 +51,15 @@ function dev() {
   watchedBrowserify.on('log', gutil.log);
   return result;
 }
-// todo: add delete path
-gulp.task('dev', () => {
-  runSequence(['eslint', 'tslint', 'connect-dev']);
-  return dev();
+
+gulp.task('dev', (done) => {
+  runSequence('clean-dev', ['static-dev', 'eslint', 'tslint'], 'connect-dev', 'test');
+  dev();
+  done();
+});
+
+gulp.task('dev-test', (done) => {
+  runSequence('clean-dev', 'static-dev', 'eslint', 'tslint', 'test');
+  dev();
+  done();
 });
